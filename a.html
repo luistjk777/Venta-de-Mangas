@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Manga Store - Catálogo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: yellow;
+    }
+
+/* Barra superior (estilo modernizado como en inicio) */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.search-bar input {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 15px;
+}
+
+.cart, .favorites {
+  position: relative;
+  cursor: pointer;
+  font-size: 18px;
+  color: white;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
+
+    .info-bar {
+      width: 250px;
+      background-color: #333;
+      color: white;
+      padding: 30px;
+      float: left;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .info-bar h3 {
+      color: #FF5AA4;
+    }
+
+    .content {
+      margin-left: 270px;
+      padding: 20px;
+    }
+
+    .genre-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px 0;
+    }
+
+    .genre-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 15px;
+      position: relative;
+    }
+
+    .genre-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .genre-card h3 {
+      margin: 10px 0;
+    }
+
+    .heart {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      color: gray;
+      cursor: pointer;
+    }
+
+    .heart.favorited {
+      color: red;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+  <a href="trabajofinal.html" class="logo">📚 MangaStore</a>
+  <nav>
+    <a href="trabajofinal.html">Inicio</a>
+    <a href="a.html">Catálogo</a>
+    <div class="buscador">
+      <input type="text" id="searchInput" placeholder="Buscar manga...">
+    </div>
+    <a href="#" onclick="showCart()">🛒 <span class="cart-count" id="cartCount">0</span></a>
+    <a href="#" onclick="showFavorites()">❤️</a>
+  </nav>
+</header>
+
+
+  <!-- Barra lateral de información -->
+  <aside class="info-bar">
+    <h3>Shōnen (少年)</h3>
+    <p>Dirigido a chicos jóvenes, acción y aventura, protagonistas con metas claras.</p>
+    <h3>Shōjo (少女)</h3>
+    <p>Para chicas jóvenes, enfoque en emociones y relaciones personales.</p>
+    <h3>Seinen (青年)</h3>
+    <p>Adultos jóvenes, tramas maduras y psicológicas, posible contenido explícito.</p>
+    <h3>Josei (女性)</h3>
+    <p>Mujeres adultas, historias realistas, relaciones con profundidad emocional.</p>
+  </aside>
+
+  <!-- Contenido principal -->
+  <div class="content">
+    <section class="genre-grid" id="genreGrid">
+      <div class="genre-card" data-name="Shōnen" data-category="shonen.html">
+        <img src="komi.png" alt="Shonen">
+        <h3>Shōnen</h3>
+        <span class="heart" onclick="toggleFavorite(this, 'Shōnen')">♥</span>
+        <a href="Shōnen.html">Ver más</a>
+      </div>
+      <div class="genre-card" data-name="Shōjo" data-category="shojo.html">
+        <img src="img9_(2).png" alt="Shojo">
+        <h3>Shōjo</h3>
+        <span class="heart" onclick="toggleFavorite(this, 'Shōjo')">♥</span>
+        <a href="shojo.html">Ver más</a>
+      </div>
+      <div class="genre-card" data-name="Seinen" data-category="seinen.html">
+        <img src="zero.png" alt="Seinen">
+        <h3>Seinen</h3>
+        <span class="heart" onclick="toggleFavorite(this, 'Seinen')">♥</span>
+        <a href="seinen.html">Ver más</a>
+      </div>
+      <div class="genre-card" data-name="Josei" data-category="josei.html">
+        <img src="re.png" alt="Josei">
+        <h3>Josei</h3>
+        <span class="heart" onclick="toggleFavorite(this, 'Josei')">♥</span>
+        <a href="josei.html">Ver más</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Manga Store. Todos los derechos reservados.
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    function showCart() {
+      alert("Carrito:\n" + (cart.length ? cart.join('\n') : "Vacío"));
+    }
+
+    function toggleFavorite(icon, name) {
+      const index = favorites.indexOf(name);
+      if (index !== -1) {
+        favorites.splice(index, 1);
+        icon.classList.remove("favorited");
+      } else {
+        favorites.push(name);
+        icon.classList.add("favorited");
+      }
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+
+    function showFavorites() {
+      alert("Favoritos:\n" + (favorites.length ? favorites.join('\n') : "Vacío"));
+    }
+
+    window.onload = () => {
+      document.querySelectorAll('.genre-card').forEach(card => {
+        const name = card.dataset.name;
+        if (favorites.includes(name)) {
+          card.querySelector('.heart').classList.add('favorited');
+        }
+      });
+      document.getElementById('cartCount').textContent = cart.length;
+
+      document.getElementById("searchInput").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          const query = this.value.toLowerCase();
+          const cards = document.querySelectorAll(".genre-card");
+          for (let card of cards) {
+            if (card.dataset.name.toLowerCase().includes(query)) {
+              location.href = card.dataset.category;
+              break;
+            }
+          }
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>

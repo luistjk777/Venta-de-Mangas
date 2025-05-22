@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Página de Inicio - MangaStore</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: yellow;
+      padding-bottom: 80px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 24px;
+      color: white;
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    .buscador {
+      display: flex;
+      align-items: center;
+    }
+
+    .buscador input {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      justify-items: center;
+    }
+
+    .producto {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      padding: 10px;
+      text-align: center;
+      width: 200px;
+    }
+
+    .producto img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header>
+    <a href="inicio.html" class="logo">📚 MangaStore</a>
+    <nav>
+      <a href="inicio.html">Inicio</a>
+      <a href="a.html">Catálogo</a>
+      <div class="buscador">
+        <input type="text" id="buscarInput" placeholder="Buscar manga...">
+      </div>
+      <a href="#" id="carritoBtn">🛒 Carrito</a>
+    </nav>
+  </header>
+
+  <!-- Productos -->
+  <main>
+    <div class="productos">
+      <div class="producto" id="kimetsu">
+        <img src="img2.png" alt="Kimetsu no Yaiba">
+        <h3>Kimetsu no Yaiba</h3>
+        <p>Shōnen - $120</p>
+      </div>
+      <div class="producto" id="chainsaw">
+        <img src="img9_(10).png" alt="Chainsaw Man">
+        <h3>Chainsaw Man</h3>
+        <p>Shōnen - $110</p>
+      </div>
+      <div class="producto" id="komi">
+        <img src="img3.png" alt="Komi-san">
+        <h3>Kimetsu no Yaiba Vol.3</h3>
+        <p>Shōnen - $115</p>
+      </div>
+      <div class="producto" id="nuevo1">
+        <img src="img9_(4).png" alt="Nuevo Manga 1">
+        <h3>Komi-san Vol.11</h3>
+        <p>Shōnen - $130</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Barra inferior -->
+  <footer>
+    <a href="mailto:tobonmorenol@gmail.com">📧 Gmail</a>
+    <a href="https://instagram.com/tuusuario" target="_blank">📷 Instagram</a>
+    <a href="#" id="login">Iniciar sesión</a>
+    <a href="#" id="registro">Registrarse</a>
+  </footer>
+
+  <!-- Script del buscador -->
+  <script>
+    document.getElementById("buscarInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        const query = e.target.value.toLowerCase();
+        let destino = "";
+
+        if (query.includes("kimetsu")) {
+          destino = "Shōnen.html#kimetsu";
+        } else if (query.includes("chainsaw")) {
+          destino = "Shōnen.html#chainsaw";
+        } else if (query.includes("komi")) {
+          destino = "Shōnen.html#komi";
+        } else {
+          alert("Producto no encontrado.");
+          return;
+        }
+
+        window.location.href = destino;
+      }
+    });
+  </script>
+
+</body>
+</html>
