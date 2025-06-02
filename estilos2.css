@@ -1,0 +1,168 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background: yellow;
+}
+
+/* Barra superior (estilo modernizado como en inicio) */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+  text-decoration: none;
+}
+.cart-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.search-bar input {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 15px;
+}
+
+.cart, .favorites {
+  position: relative;
+  cursor: pointer;
+  font-size: 18px;
+  color: white;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
+
+
+h1 {
+  text-align: center;
+  font-size: 36px;
+  margin-top: 0;
+  font-weight: bold;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 20px 30px;
+  justify-items: center;
+}
+
+.manga {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 9px rgba(0,0,0,0.1);
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.manga:hover {
+  box-shadow: 0 7px 15px rgba(0,0,0,0.25);
+  transform: translateY(-6px);
+}
+
+.manga img {
+  width: 120px;
+  height: 160px;
+  border-radius: 5px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.manga p {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 8px 0 4px;
+}
+
+.manga-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.manga-actions button {
+  font-size: 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.3s ease;
+}
+
+.manga-actions button:hover {
+  color: #6436e8;
+}
+
+.descuento {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: red;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 6px;
+}
+nav a:hover {
+  color: blueviolet; 
+}
+nav a:hover {
+  color: #blueviolet; /* Puedes elegir otro color si lo prefieres */
+  text-decoration: underline;
+}

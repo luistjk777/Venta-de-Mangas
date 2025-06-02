@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Carrito</title>
+  <link rel="stylesheet" href="estilos2.css" />
+  <style>
+    main {
+      padding: 20px;
+      background: yellow;
+      min-height: 80vh;
+    }
+
+    .item {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      margin-bottom: 15px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .item img {
+      width: 80px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .item-info {
+      flex-grow: 1;
+    }
+
+    .item-info p {
+      margin: 4px 0;
+    }
+
+    .btn-eliminar {
+      background: crimson;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-eliminar:hover {
+      background: darkred;
+    }
+
+    .btn-comprar {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: green;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-comprar:hover {
+      background: darkgreen;
+    }
+
+    .total {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: #aaa;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="inicio.html" class="logo">📚 MangaStore</a>
+  <nav>
+    <a href="inicio.html">Inicio</a>
+    <a href="a.html">Catálogo</a>
+    <div class="buscador">
+      <input type="text" placeholder="Buscar..." />
+    </div>
+    <a href="carrito.html" class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></a>
+  </nav>
+</header>
+
+<main>
+  <h1>Tu Carrito</h1>
+  <div id="lista-carrito"></div>
+  <p class="total" id="total"></p>
+  <button class="btn-comprar" onclick="comprar()">Comprar</button>
+</main>
+
+<footer>
+  <a href="mailto:tobonmorenol@gmail.com">📧 Gmail</a>
+  <a href="https://instagram.com/tuusuario" target="_blank">📷 Instagram</a>
+</footer>
+
+<script>
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  function renderCarrito() {
+    const contenedor = document.getElementById("lista-carrito");
+    const totalTexto = document.getElementById("total");
+    contenedor.innerHTML = "";
+    let total = 0;
+
+    carrito.forEach((item, i) => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <img src="${item.imagen || 'img/placeholder.jpg'}" alt="${item.nombre}">
+        <div class="item-info">
+          <p><strong>${item.nombre}</strong></p>
+          <p>Precio: $${item.precio}</p>
+        </div>
+        <button class="btn-eliminar" onclick="eliminar(${i})">Eliminar</button>
+      `;
+      contenedor.appendChild(div);
+      total += item.precio;
+    });
+
+    totalTexto.textContent = carrito.length
+      ? `Total: $${total}`
+      : "El carrito está vacío.";
+    document.getElementById("cartCount").textContent = carrito.length;
+  }
+
+  function eliminar(i) {
+    carrito.splice(i, 1);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    renderCarrito();
+  }
+
+  function comprar() {
+    if (carrito.length === 0) {
+      alert("Tu carrito está vacío.");
+      return;
+    }
+    alert("¡Gracias por tu compra!");
+    carrito = [];
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    renderCarrito();
+  }
+
+  renderCarrito();
+</script>
+
+</body>
+</html>

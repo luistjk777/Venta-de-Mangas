@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shōnen</title>
+  <link rel="stylesheet" href="estilos2.css" />
+  <style>
+    .cart-btn {
+      background-color: black;
+      border: 2px solid #333;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cart-btn:hover {
+      background-color: black;
+    }
+
+    .precio {
+      font-weight: normal;
+      font-size: 14px;
+      color: #333;
+      margin: 4px 0 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="inicio.html" class="logo">📚 MangaStore</a>
+  <nav>
+    <a href="inicio.html">Inicio</a>
+    <a href="a.html">Catálogo</a>
+    <div class="buscador">
+      <input type="text" id="searchInput" placeholder="Buscar manga...">
+    </div>
+    <a href="carrito.html" onclick="showCart()" class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></a>
+  </nav>
+</header>
+
+<h1>Shōnen</h1>
+
+<div class="gallery" id="galeria-mangas"></div>
+
+<script>
+  const productos = [
+    { nombre: "Komi-San Vol. 1", img: "komi.png", precio: 200 },
+    { nombre: "Komi-San Vol. 11", img: "img9_(4).png", precio: 200, descuento: true },
+    { nombre: "Demon Slayer Vol. 1", img: "img2.png", precio: 120 },
+    { nombre: "Demon Slayer Vol. 2", img: "img4.png", precio: 130 },
+    { nombre: "Demon Slayer Vol. 3", img: "img3.png", precio: 120, descuento: true },
+    { nombre: "Demon Slayer Vol. 5", img: "img5.png", precio: 120 },
+    { nombre: "Demon Slayer Vol. 6", img: "img6.png", precio: 120 },
+    { nombre: "Demon Slayer Vol. 7", img: "img7.png", precio: 120 },
+    { nombre: "Demon Slayer Vol. 8", img: "img1.png", precio: 250, descuento: true },
+    { nombre: "Demon Slayer Vol. 10", img: "img9_(3).png", precio: 140 },
+    { nombre: "Demon Slayer Vol. 16", img: "16.png", precio: 1700 },
+    { nombre: "Chainsaw Man Vol. 2", img: "img9_(10).png", precio: 190 },
+    { nombre: "Chainsaw Man Vol. 3", img: "img9_(9).png", precio: 190, descuento: true },
+    { nombre: "Chainsaw Man Vol. 4", img: "img9_(8).png", precio: 190 },
+    { nombre: "Chainsaw Man Vol. 6", img: "img9_(7).png", precio: 190 },
+    { nombre: "Chainsaw Man Vol. 12", img: "img9_(6).png", precio: 190, descuento: true },
+    { nombre: "Zelda Four Sword", img: "img9_(5).png", precio: 250 },
+    { nombre: "Death Note Vol. 1", img: "1.png", precio: 160 }
+  ];
+
+  const galeria = document.getElementById("galeria-mangas");
+  const buscador = document.getElementById("searchInput");
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  function actualizarContador() {
+    document.getElementById("cartCount").textContent = carrito.length;
+  }
+
+  function renderProductos(filtro = "") {
+    galeria.innerHTML = "";
+    productos.forEach((p, i) => {
+      if (p.nombre.toLowerCase().includes(filtro.toLowerCase())) {
+        const div = document.createElement("div");
+        div.className = "manga";
+
+        let descuentoHTML = p.descuento ? '<span class="descuento">20% OFF</span>' : '';
+
+        div.innerHTML = `
+          ${descuentoHTML}
+          <img src="${p.img}" alt="${p.nombre}" />
+          <p>${p.nombre}</p>
+          <p class="precio">Precio: $${p.precio}</p>
+          <div class="manga-actions">
+            <button class="cart-btn" onclick="agregarCarrito(${i})">🛒 Agregar al carrito</button>
+          </div>
+        `;
+        galeria.appendChild(div);
+      }
+    });
+  }
+
+  function agregarCarrito(i) {
+  const producto = {
+    nombre: productos[i].nombre,
+    precio: productos[i].precio,
+    imagen: productos[i].img // <-- importante: usar 'imagen'
+  };
+  carrito.push(producto);
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarContador();
+  alert(`${producto.nombre} se agregó al carrito`);
+}
+
+
+  buscador.addEventListener("input", () => {
+    renderProductos(buscador.value);
+  });
+
+  renderProductos();
+  actualizarContador();
+</script>
+
+</body>
+</html>
