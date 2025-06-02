@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Página de Inicio - MangaStore</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: yellow;
+      padding-bottom: 80px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 24px;
+      color: white;
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    .buscador input {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      justify-items: center;
+    }
+
+    .producto {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      padding: 10px;
+      text-align: center;
+      width: 200px;
+    }
+
+    .producto img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .producto button {
+      margin-top: 10px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .producto button:hover {
+      background-color: #555;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: blueviolet;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header>
+    <a href="inicio.html" class="logo">📚 MangaStore</a>
+    <nav>
+      <a href="inicio.html">Inicio</a>
+      <a href="a.html">Catálogo</a>
+      <div class="buscador">
+        <input type="text" id="buscarInput" placeholder="Buscar manga...">
+      </div>
+      <a href="carrito.html">🛒 Carrito</a>
+    </nav>
+  </header>
+
+  <!-- Productos -->
+  <main>
+    <h2 style="text-align:center; margin-top: 20px; color:black;">Lo más comprado</h2>
+    <div class="productos">
+      <div class="producto" data-id="kimetsu" data-nombre="Kimetsu no Yaiba" data-precio="120" data-imagen="img2.png">
+        <img src="img2.png" alt="Kimetsu no Yaiba">
+        <h3>Kimetsu no Yaiba</h3>
+        <p>Shōnen - $120</p>
+        <button>🛒 Agregar</button>
+      </div>
+      <div class="producto" data-id="chainsaw" data-nombre="Chainsaw Man" data-precio="110" data-imagen="img9_(10).png">
+        <img src="img9_(10).png" alt="Chainsaw Man">
+        <h3>Chainsaw Man</h3>
+        <p>Shōnen - $110</p>
+        <button>🛒 Agregar</button>
+      </div>
+      <div class="producto" data-id="komi" data-nombre="Kimetsu no Yaiba Vol.8" data-precio="115" data-imagen="img1.png">
+        <img src="img1.png" alt="Komi-san">
+        <h3>Kimetsu no Yaiba Vol.8</h3>
+        <p>Shōnen - $115</p>
+        <button>🛒 Agregar</button>
+      </div>
+      <div class="producto" data-id="nuevo1" data-nombre="Komi-san Vol.11" data-precio="130" data-imagen="img9_(4).png">
+        <img src="img9_(4).png" alt="Nuevo Manga 1">
+        <h3>Komi-san Vol.11</h3>
+        <p>Shōnen - $130</p>
+        <button>🛒 Agregar</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Barra inferior -->
+  <footer>
+    <a href="mailto:tobonmorenol@gmail.com">📧 Gmail</a>
+    <a href="https://instagram.com/tuusuario" target="_blank">📷 Instagram</a>
+    <a href="#">Iniciar sesión</a>
+    <a href="#">Registrarse</a>
+  </footer>
+
+<script>
+  // Función para agregar un producto al carrito
+  function agregarAlCarrito(producto) {
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    carrito.push(producto);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    alert(`${producto.nombre} fue agregado al carrito.`);
+    actualizarContadorCarrito();
+  }
+
+  function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    let contador = document.querySelector(".cart-count");
+    if (!contador) {
+      const linkCarrito = document.querySelector('a[href="carrito.html"]');
+      contador = document.createElement("span");
+      contador.className = "cart-count";
+      linkCarrito.style.position = "relative";
+      linkCarrito.appendChild(contador);
+    }
+    contador.textContent = carrito.length;
+  }
+
+  document.querySelectorAll(".producto button").forEach(button => {
+    button.onclick = () => {
+      const contenedor = button.closest(".producto");
+      const producto = {
+        id: contenedor.dataset.id || "",
+        nombre: contenedor.dataset.nombre || "Sin nombre",
+        precio: parseFloat(contenedor.dataset.precio) || 0,
+        imagen: contenedor.dataset.imagen || ""
+      };
+      agregarAlCarrito(producto);
+    };
+  });
+
+  document.getElementById("buscarInput")?.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+      const valor = e.target.value.toLowerCase();
+      let destino = "";
+
+      if (valor.includes("kimetsu")) {
+        destino = "Shōnen.html#kimetsu";
+      } else if (valor.includes("chainsaw")) {
+        destino = "Shōnen.html#chainsaw";
+      } else if (valor.includes("komi")) {
+        destino = "Shōnen.html#komi";
+      } else {
+        alert("Producto no encontrado.");
+        return;
+      }
+
+      window.location.href = destino;
+    }
+  });
+
+  // Cargar contador al iniciar
+  actualizarContadorCarrito();
+</script>
+
+
+</body>
+</html>
